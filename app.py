@@ -18,6 +18,8 @@ def callback():
     signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
 
+    print("📩 收到 LINE 的 webhook 訊息囉！")  # ← 新加這行！
+
     try:
         handler.handle(body, signature)
     except:
