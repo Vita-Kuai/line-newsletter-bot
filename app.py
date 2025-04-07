@@ -19,6 +19,7 @@ def callback():
     body = request.get_data(as_text=True)
 
     print("📩 收到 LINE 的 webhook 訊息囉！")  # ← 新加這行！
+    print("📦 webhook 資料：", body)  # ← 印出完整 webhook 內容幫你 debug
 
     try:
         handler.handle(body, signature)
