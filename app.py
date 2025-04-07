@@ -23,7 +23,8 @@ def callback():
 
     try:
         handler.handle(body, signature)
-    except:
+    except Exception as e:
+        print("❌ webhook 處理錯誤：", str(e))  # ← 印出錯誤原因
         return 'Invalid signature', 400
 
     return 'OK'
