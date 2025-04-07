@@ -22,11 +22,10 @@ import base64
 def callback():
     signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
-    
+
     print("📩 收到 LINE 的 webhook！")
     print("📦 webhook 原始內容：", body)
 
-    # 驗證簽章（自己算）
     hash = hmac.new(
         os.getenv('CHANNEL_SECRET').encode('utf-8'),
         body.encode('utf-8'),
@@ -42,7 +41,6 @@ def callback():
         print("❌ 簽章不符合！拒絕處理")
         return 'Invalid signature', 400
 
-    # 轉成 JSON 看有沒有 userId
     try:
         data = json.loads(body)
         print("👤 webhook 內容解析後：", data)
@@ -53,6 +51,9 @@ def callback():
         print("❌ webhook 資料解析錯誤：", str(e))
 
     return 'OK'
+
+
+   
 
 
 @handler.add(MessageEvent, message=TextMessage)
